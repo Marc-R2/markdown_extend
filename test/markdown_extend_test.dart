@@ -20,13 +20,13 @@ void main() {
 
   const italic0 = ConvertSingleTest(
     '*Markdown*',
-    ConvertedItalic([ConvertedText(TokenAtomic('Markdown'))],), // TODO: false),
+    ConvertedItalic(ConvertedText(TokenAtomic('Markdown'))), // TODO: false),
   );
   italic0.run();
 
   const italic1 = ConvertSingleTest(
     '_Markdown_',
-    ConvertedItalic([ConvertedText(TokenAtomic('Markdown'))]),
+    ConvertedItalic(ConvertedText(TokenAtomic('Markdown'))),
   );
   italic1.run();
 
@@ -40,7 +40,7 @@ void main() {
     '[[file_abc|named]]',
     InternalLinkNamedConverted(
       TokenAtomic('file_abc'),
-      [ConvertedText(TokenAtomic('named'))],
+      ConvertedText(TokenAtomic('named')),
     ),
   );
   link1.run();
@@ -54,7 +54,7 @@ void main() {
   const link2 = ConvertSingleTest(
     '[fileAbc](some.pdf)',
     ConvertedLink(
-      [ConvertedText(TokenAtomic('fileAbc'))],
+      ConvertedText(TokenAtomic('fileAbc')),
       TokenAtomic('some.pdf'),
     ),
   );
@@ -62,7 +62,7 @@ void main() {
 
   const strong0 = ConvertSingleTest(
     '**Markdown**',
-    ConvertedStrong([ConvertedText(TokenAtomic('Markdown'))]),
+    ConvertedStrong(ConvertedText(TokenAtomic('Markdown'))),
   );
   strong0.run();
 

@@ -5,20 +5,39 @@ import 'package:markdown_extend/src/node_converter.dart';
 import 'package:markdown_extend/src/token/token.dart';
 
 class ConvertedLink with Converted {
-  const ConvertedLink(this.children, this.url);
+  const ConvertedLink(this.named, this.url);
 
   factory ConvertedLink.fromElement(Element element) {
     final children = element.children?.map((node) => node.convert()).toList();
+    final named = GroupConverted.fromList(children);
     final url = element.attributes['href'];
-    return ConvertedLink(children, url?.toToken());
+    return ConvertedLink(named, url?.toToken());
   }
 
-  final List<Converted>? children;
+  final Converted? named;
   final Token? url;
 
   @override
-  String toString() => '[${children?.join()}](${url?.text ?? ''})';
+  String toString() => '[$named](${url?.text ?? ''})';
 
   @override
-  String debug() => 'ConvertedLink(${children?.map((e) => e.debug()).join(', ')}, $url)';
+  String debug() => 'Link(${named?.debug()}, $url)';
+}
+
+class GroupConverted with Converted {
+  const GroupConverted(this.children);
+
+  static Converted? fromList(Iterable<Converted>? list) {
+    if (list == null) return null;
+    if (list.length > 1) return GroupConverted(list.toList());
+    return list.firstOrNull;
+  }
+
+  final List<Converted> children;
+
+  @override
+  String toString() => children.map((c) => c.toString()).join();
+
+  @override
+  String debug() => 'Group(${children.map((c) => c.debug()).join(', ')}';
 }

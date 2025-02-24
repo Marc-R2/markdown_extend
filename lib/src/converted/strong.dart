@@ -1,47 +1,48 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
+import 'package:markdown_extend/src/converted/link.dart';
 import 'package:markdown_extend/src/node_converter.dart';
 
 class ConvertedStrong with Converted {
-  const ConvertedStrong(this.children);
+  const ConvertedStrong(this.child);
 
   factory ConvertedStrong.fromElement(Element element) {
     final children = element.children?.map((node) => node.convert());
+    final child = GroupConverted.fromList(children);
     assert(element.attributes.isEmpty,
         'Unexpected attributes: ${element.attributes}');
-    return ConvertedStrong(children?.toList());
+    return ConvertedStrong(child);
   }
 
-  final List<Converted>? children;
+  final Converted? child;
 
   @override
-  String toString() => '**${children?.join('')}**';
+  String toString() => '**$child**';
 
   @override
-  String debug() =>
-      'ConvertedStrong(${children?.map((e) => e.debug()).join(', ')})';
+  String debug() => 'ConvertedStrong($child)';
 }
 
 class ConvertedItalic with Converted {
-  const ConvertedItalic(this.children, [this.isUnderscore = true]);
+  const ConvertedItalic(this.child, [this.isUnderscore = true]);
 
   factory ConvertedItalic.fromElement(Element element) {
     final children = element.children?.map((node) => node.convert());
+    final child = GroupConverted.fromList(children);
     assert(element.attributes.isEmpty,
         'Unexpected attributes: ${element.attributes}');
-    return ConvertedItalic(children?.toList());
+    return ConvertedItalic(child);
   }
 
-  final List<Converted>? children;
+  final Converted? child;
 
   final bool isUnderscore;
 
   String get prefix => isUnderscore ? '_' : '*';
 
   @override
-  String toString() => '$prefix${children?.join('')}$prefix';
+  String toString() => '$prefix$child$prefix';
 
   @override
-  String debug() =>
-      'ConvertedItalic(${children?.map((e) => e.debug()).join(', ')})';
+  String debug() => 'ConvertedItalic($child)';
 }

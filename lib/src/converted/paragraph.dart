@@ -1,23 +1,24 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
+import 'package:markdown_extend/src/converted/link.dart';
 import 'package:markdown_extend/src/node_converter.dart';
 
 class ConvertedParagraph with Converted {
-  const ConvertedParagraph(this.children);
+  const ConvertedParagraph(this.child);
 
   factory ConvertedParagraph.fromElement(Element element) {
     final children = element.children?.map((node) => node.convert());
+    final child = GroupConverted.fromList(children);
     assert(element.attributes.isEmpty,
         'Unexpected attributes: ${element.attributes}');
-    return ConvertedParagraph(children?.toList());
+    return ConvertedParagraph(child);
   }
 
-  final List<Converted>? children;
+  final Converted? child;
 
   @override
-  String toString() => children?.join('') ?? '';
+  String toString() => child.toString();
 
   @override
-  String debug() =>
-      'ConvertedParagraph(${children?.map((e) => e.debug()).join(', ')})';
+  String debug() => 'ConvertedParagraph(${child?.debug()})';
 }

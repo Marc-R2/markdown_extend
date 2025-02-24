@@ -14,15 +14,14 @@ class InternalLinkUnnamedConverted with Converted {
 }
 
 class InternalLinkNamedConverted with Converted {
-  const InternalLinkNamedConverted(this.targetName, this.children);
+  const InternalLinkNamedConverted(this.targetName, this.named);
 
   final Token targetName;
-  final List<Converted> children;
+  final Converted named;
 
   @override
-  String toString() => '[[${targetName.text}|${children.join()}]]';
+  String toString() => '[[${targetName.text}|$named]]';
 
   @override
-  String debug() =>
-      'InternalLinkNamedConverted($targetName, ${children.map((e) => e.debug()).join(', ')})';
+  String debug() => 'InternalLinkNamedConverted($targetName, ${named.debug()})';
 }

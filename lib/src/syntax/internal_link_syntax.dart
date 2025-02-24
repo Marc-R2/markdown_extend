@@ -1,6 +1,7 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/internal_link.dart';
+import 'package:markdown_extend/src/converted/link.dart';
 import 'package:markdown_extend/src/converted/text.dart';
 import 'package:markdown_extend/src/node_converter.dart';
 
@@ -35,7 +36,7 @@ class InternalLinkNamed extends Element with InternalLink {
   InternalLinkNamedConverted convertInternalLink() =>
       InternalLinkNamedConverted(
         targetName.toToken(),
-        children!.map((c) => c.convert()).toList(),
+        GroupConverted.fromList(children!.map((c) => c.convert()))!,
       );
 }
 

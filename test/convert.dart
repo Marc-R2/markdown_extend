@@ -1,5 +1,6 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
+import 'package:markdown_extend/src/converted/link.dart';
 import 'package:markdown_extend/src/converted/paragraph.dart';
 import 'package:markdown_extend/src/node_converter.dart';
 import 'package:markdown_extend/src/syntax/internal_link_syntax.dart';
@@ -27,15 +28,14 @@ class ConvertSingleTest extends ConvertTest {
         input,
         extensionSet: extensionSet,
       );
-      final expected = [
-        ConvertedParagraph([this.expected]),
-      ];
+      final expected = [ConvertedParagraph(this.expected)];
       final converted = parse.map((node) => node.convert()).toList();
       expect(converted.length, expected.length);
       expect(
         eqList(converted, expected),
         isTrue,
-        reason: '${converted.map((e) => e.debug()).join(', ')} != ${expected.map((e) => e.debug()).join(', ')}',
+        reason:
+            '${converted.map((e) => e.debug()).join(', ')} != ${expected.map((e) => e.debug()).join(', ')}',
       );
     });
   }
@@ -49,15 +49,13 @@ class ConvertBlockTest extends ConvertTest {
   @override
   void run() {
     final input = inputs.map((e) => e.input).join('');
-    final expects = inputs.map((e) => e.expected).toList();
+    final expects = GroupConverted.fromList(inputs.map((e) => e.expected));
     test('Convert Test - $input to $expects', () {
       final parse = markdownParse(
         input,
         extensionSet: extensionSet,
       );
-      final expected = [
-        ConvertedParagraph(expects),
-      ];
+      final expected = [ConvertedParagraph(expects)];
       final converted = parse.map((node) => node.convert()).toList();
       print(converted);
       print(expected);
