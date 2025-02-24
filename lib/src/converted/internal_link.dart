@@ -8,6 +8,9 @@ class InternalLinkUnnamedConverted with Converted {
 
   @override
   String toString() => '[[$targetName]]';
+
+  @override
+  String debug() => 'InternalLinkUnnamedConverted($targetName)';
 }
 
 class InternalLinkNamedConverted with Converted {
@@ -18,4 +21,8 @@ class InternalLinkNamedConverted with Converted {
 
   @override
   String toString() => '[[${targetName.text}|${children.join()}]]';
+
+  @override
+  String debug() =>
+      'InternalLinkNamedConverted($targetName, ${children.map((e) => e.debug()).join(', ')})';
 }

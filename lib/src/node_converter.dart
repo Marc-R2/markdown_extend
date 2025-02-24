@@ -23,7 +23,7 @@ extension on Element {
       'img' => ConvertedFile.fromElement(this),
       'p' => ConvertedParagraph.fromElement(this),
       'strong' => ConvertedStrong.fromElement(this),
-      'em' => ConvertedStrong.fromElement(this),
+      'em' => ConvertedItalic.fromElement(this),
       String() => throw Exception('Unknown element tag: $tag'),
     };
   }

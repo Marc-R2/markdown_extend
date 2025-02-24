@@ -10,6 +10,9 @@ class ConvertedText with Converted {
 
   @override
   String toString() => token.text;
+
+  @override
+  String debug() => 'ConvertedText($token)';
 }
 
 extension TextConverter on Text {

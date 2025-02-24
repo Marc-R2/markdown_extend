@@ -17,4 +17,7 @@ class ConvertedFile with Converted {
 
   @override
   String toString() => '![${alt ?? ''}](${url ?? ''})';
+
+  @override
+  String debug() => 'ConvertedFile($alt, $url)';
 }

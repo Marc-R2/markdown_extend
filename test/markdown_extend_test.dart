@@ -1,6 +1,12 @@
-import 'package:markdown/markdown.dart';
+import 'package:markdown_extend/src/converted/file.dart';
+import 'package:markdown_extend/src/converted/internal_link.dart';
+import 'package:markdown_extend/src/converted/link.dart';
+import 'package:markdown_extend/src/converted/strong.dart';
+import 'package:markdown_extend/src/converted/text.dart';
 import 'package:markdown_extend/src/node_converter.dart';
-import 'package:markdown_extend/src/syntax/internal_link_syntax.dart';
+import 'package:markdown_extend/src/token/atomic.dart';
+
+import 'convert.dart';
 
 void main() {
   final parse = markdownParse(
@@ -11,51 +17,55 @@ void main() {
   final converted = parse.map((node) => node.convert()).toList();
   print(converted);
   print('Done');
-}
 
-final extensionSet = ExtensionSet(
-  List<BlockSyntax>.unmodifiable(
-    <BlockSyntax>[
-      const FencedCodeBlockSyntax(),
-      const TableSyntax(),
-      const UnorderedListWithCheckboxSyntax(),
-      const OrderedListWithCheckboxSyntax(),
-      const FootnoteDefSyntax(),
-      const AlertBlockSyntax(),
-    ],
-  ),
-  List<InlineSyntax>.unmodifiable(
-    <InlineSyntax>[
-      InlineHtmlSyntax(),
-      StrikethroughSyntax(),
-      AutolinkExtensionSyntax(),
-      InternalLinkSyntax(),
-    ],
-  ),
-);
-
-List<Node> markdownParse(
-  String markdown, {
-  Iterable<BlockSyntax> blockSyntaxes = const [],
-  Iterable<InlineSyntax> inlineSyntaxes = const [],
-  ExtensionSet? extensionSet,
-  Resolver? linkResolver,
-  Resolver? imageLinkResolver,
-  bool inlineOnly = false,
-  bool encodeHtml = true,
-  bool enableTagfilter = false,
-  bool withDefaultBlockSyntaxes = true,
-  bool withDefaultInlineSyntaxes = true,
-}) {
-  final document = Document(
-    blockSyntaxes: blockSyntaxes,
-    inlineSyntaxes: inlineSyntaxes,
-    extensionSet: extensionSet,
-    linkResolver: linkResolver,
-    imageLinkResolver: imageLinkResolver,
-    encodeHtml: encodeHtml,
-    withDefaultBlockSyntaxes: withDefaultBlockSyntaxes,
-    withDefaultInlineSyntaxes: withDefaultInlineSyntaxes,
+  const italic0 = ConvertSingleTest(
+    '*Markdown*',
+    ConvertedItalic([ConvertedText(TokenAtomic('Markdown'))],), // TODO: false),
   );
-  return document.parse(markdown);
+  italic0.run();
+
+  const italic1 = ConvertSingleTest(
+    '_Markdown_',
+    ConvertedItalic([ConvertedText(TokenAtomic('Markdown'))]),
+  );
+  italic1.run();
+
+  const link0 = ConvertSingleTest(
+    '[[links]]',
+    InternalLinkUnnamedConverted(TokenAtomic('links')),
+  );
+  link0.run();
+
+  const link1 = ConvertSingleTest(
+    '[[file_abc|named]]',
+    InternalLinkNamedConverted(
+      TokenAtomic('file_abc'),
+      [ConvertedText(TokenAtomic('named'))],
+    ),
+  );
+  link1.run();
+
+  const file0 = ConvertSingleTest(
+    '![images](image.png)',
+    ConvertedFile(TokenAtomic('images'), TokenAtomic('image.png')),
+  );
+  file0.run();
+
+  const link2 = ConvertSingleTest(
+    '[fileAbc](some.pdf)',
+    ConvertedLink(
+      [ConvertedText(TokenAtomic('fileAbc'))],
+      TokenAtomic('some.pdf'),
+    ),
+  );
+  link2.run();
+
+  const strong0 = ConvertSingleTest(
+    '**Markdown**',
+    ConvertedStrong([ConvertedText(TokenAtomic('Markdown'))]),
+  );
+  strong0.run();
+
+  const c = ConvertBlockTest([strong0, italic0, italic1, link0, link1]);
+  c.run();
 }

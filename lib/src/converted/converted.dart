@@ -1,1 +1,3 @@
-mixin Converted {}
+mixin Converted {
+  String debug();
+}

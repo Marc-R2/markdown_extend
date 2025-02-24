@@ -8,7 +8,7 @@ class ConvertedStrong with Converted {
   factory ConvertedStrong.fromElement(Element element) {
     final children = element.children?.map((node) => node.convert());
     assert(element.attributes.isEmpty,
-    'Unexpected attributes: ${element.attributes}');
+        'Unexpected attributes: ${element.attributes}');
     return ConvertedStrong(children?.toList());
   }
 
@@ -16,4 +16,32 @@ class ConvertedStrong with Converted {
 
   @override
   String toString() => '**${children?.join('')}**';
+
+  @override
+  String debug() =>
+      'ConvertedStrong(${children?.map((e) => e.debug()).join(', ')})';
+}
+
+class ConvertedItalic with Converted {
+  const ConvertedItalic(this.children, [this.isUnderscore = true]);
+
+  factory ConvertedItalic.fromElement(Element element) {
+    final children = element.children?.map((node) => node.convert());
+    assert(element.attributes.isEmpty,
+        'Unexpected attributes: ${element.attributes}');
+    return ConvertedItalic(children?.toList());
+  }
+
+  final List<Converted>? children;
+
+  final bool isUnderscore;
+
+  String get prefix => isUnderscore ? '_' : '*';
+
+  @override
+  String toString() => '$prefix${children?.join('')}$prefix';
+
+  @override
+  String debug() =>
+      'ConvertedItalic(${children?.map((e) => e.debug()).join(', ')})';
 }

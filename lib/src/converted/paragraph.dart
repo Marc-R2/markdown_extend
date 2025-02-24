@@ -8,7 +8,7 @@ class ConvertedParagraph with Converted {
   factory ConvertedParagraph.fromElement(Element element) {
     final children = element.children?.map((node) => node.convert());
     assert(element.attributes.isEmpty,
-    'Unexpected attributes: ${element.attributes}');
+        'Unexpected attributes: ${element.attributes}');
     return ConvertedParagraph(children?.toList());
   }
 
@@ -16,4 +16,8 @@ class ConvertedParagraph with Converted {
 
   @override
   String toString() => children?.join('') ?? '';
+
+  @override
+  String debug() =>
+      'ConvertedParagraph(${children?.map((e) => e.debug()).join(', ')})';
 }
