@@ -6,6 +6,11 @@ class TokenAtomic extends Token {
   final String value;
 
   @override
+  Iterable<TokenAtomic> get parts sync* {
+    yield this;
+  }
+
+  @override
   String get text => value;
 
   @override
