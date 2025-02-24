@@ -2,6 +2,7 @@ import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/link.dart';
 import 'package:markdown_extend/src/node_converter.dart';
+import 'package:markdown_extend/src/token/token.dart';
 
 class ConvertedStrong with Converted {
   const ConvertedStrong(this.child);
@@ -15,6 +16,11 @@ class ConvertedStrong with Converted {
   }
 
   final Converted? child;
+
+  @override
+  Iterable<Token> get tokens sync* {
+    if (child != null) yield* child!.tokens;
+  }
 
   @override
   String toString() => '**$child**';
@@ -39,6 +45,11 @@ class ConvertedItalic with Converted {
   final bool isUnderscore;
 
   String get prefix => isUnderscore ? '_' : '*';
+
+  @override
+  Iterable<Token> get tokens sync* {
+    if (child != null) yield* child!.tokens;
+  }
 
   @override
   String toString() => '$prefix$child$prefix';

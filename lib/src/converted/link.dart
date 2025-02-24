@@ -18,6 +18,12 @@ class ConvertedLink with Converted {
   final Token? url;
 
   @override
+  Iterable<Token> get tokens sync* {
+    if (named != null) yield* named!.tokens;
+    if (url != null) yield url!;
+  }
+
+  @override
   String toString() => '[$named](${url?.text ?? ''})';
 
   @override
@@ -34,6 +40,11 @@ class GroupConverted with Converted {
   }
 
   final List<Converted> children;
+
+  @override
+  Iterable<Token> get tokens sync* {
+    yield* children.expand((c) => c.tokens);
+  }
 
   @override
   String toString() => children.map((c) => c.toString()).join();

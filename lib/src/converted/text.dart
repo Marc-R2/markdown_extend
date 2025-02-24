@@ -9,6 +9,11 @@ class ConvertedText with Converted {
   final Token token;
 
   @override
+  Iterable<Token> get tokens sync* {
+    yield token;
+  }
+
+  @override
   String toString() => token.text;
 
   @override

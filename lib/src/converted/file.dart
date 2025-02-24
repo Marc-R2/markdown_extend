@@ -16,6 +16,12 @@ class ConvertedFile with Converted {
   final Token? url;
 
   @override
+  Iterable<Token> get tokens sync* {
+    if (alt != null) yield alt!;
+    if (url != null) yield url!;
+  }
+
+  @override
   String toString() => '![${alt ?? ''}](${url ?? ''})';
 
   @override

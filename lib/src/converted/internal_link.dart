@@ -7,6 +7,11 @@ class InternalLinkUnnamedConverted with Converted {
   final Token targetName;
 
   @override
+  Iterable<Token> get tokens sync* {
+    yield targetName;
+  }
+
+  @override
   String toString() => '[[$targetName]]';
 
   @override
@@ -18,6 +23,12 @@ class InternalLinkNamedConverted with Converted {
 
   final Token targetName;
   final Converted named;
+
+  @override
+  Iterable<Token> get tokens sync* {
+    yield targetName;
+    yield* named.tokens;
+  }
 
   @override
   String toString() => '[[${targetName.text}|$named]]';
