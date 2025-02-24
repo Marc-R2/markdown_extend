@@ -1,5 +1,7 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
+import 'package:markdown_extend/src/converted/text.dart';
+import 'package:markdown_extend/src/token/token.dart';
 
 class ConvertedFile with Converted {
   const ConvertedFile(this.alt, this.url);
@@ -7,11 +9,11 @@ class ConvertedFile with Converted {
   factory ConvertedFile.fromElement(Element element) {
     final alt = element.attributes['alt'];
     final url = element.attributes['src'];
-    return ConvertedFile(alt, url);
+    return ConvertedFile(alt?.toToken(), url?.toToken());
   }
 
-  final String? alt;
-  final String? url;
+  final Token? alt;
+  final Token? url;
 
   @override
   String toString() => '![${alt ?? ''}](${url ?? ''})';

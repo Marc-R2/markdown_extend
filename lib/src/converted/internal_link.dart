@@ -1,9 +1,10 @@
 import 'package:markdown_extend/src/converted/converted.dart';
+import 'package:markdown_extend/src/token/token.dart';
 
 class InternalLinkUnnamedConverted with Converted {
   const InternalLinkUnnamedConverted(this.targetName);
 
-  final String targetName;
+  final Token targetName;
 
   @override
   String toString() => '[[$targetName]]';
@@ -12,9 +13,9 @@ class InternalLinkUnnamedConverted with Converted {
 class InternalLinkNamedConverted with Converted {
   const InternalLinkNamedConverted(this.targetName, this.children);
 
-  final String targetName;
+  final Token targetName;
   final List<Converted> children;
 
   @override
-  String toString() => '[[$targetName|${children.join()}]]';
+  String toString() => '[[${targetName.text}|${children.join()}]]';
 }
