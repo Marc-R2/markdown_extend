@@ -11,14 +11,22 @@ class Builder {
   final listBuilder = <Spec>[];
 
   void _createTokenAtomic(String varName, String txt) =>
-      listBuilder.add(declareConst(varName)
-          .assign(CodeExpression(Code("TokenAtomic('$txt');"))));
+      _createConst(varName, 'TokenAtomic', "'$txt'");
 
   void _createTokenGroup(String varName, TokenGroup group) {
     final childNames = group.tokens.map(addToken).join(', ');
-    listBuilder.add(declareConst(varName)
-        .assign(CodeExpression(Code("TokenGroup([$childNames]);"))));
+    _createConst(varName, 'TokenGroup', '[$childNames]');
   }
+
+  String createVar() {
+    final newVarName = 'var${variableNames.length}'; // TODO: better var naming
+    assert(!variableNames.containsValue(newVarName), 'var already in use');
+    return newVarName;
+  }
+
+  void _createConst(String varName, String constructor, [String? parameter]) =>
+      listBuilder.add(declareConst(varName)
+          .assign(CodeExpression(Code("$constructor(${parameter ?? ''});"))));
 
   /// Returns the variable name for a [Token]
   /// The variable will be created if not present.
@@ -26,9 +34,7 @@ class Builder {
     final txt = token.text;
     final known = variableNames[txt];
     if (known != null) return known;
-    final newVarName = 'var${variableNames.length}'; // TODO: better var naming
-    assert(!variableNames.containsValue(newVarName), 'var already in use');
-    variableNames[txt] = newVarName;
+    final newVarName = variableNames[txt] = createVar();
 
     if (token is TokenAtomic) {
       _createTokenAtomic(newVarName, txt);
@@ -36,6 +42,14 @@ class Builder {
       _createTokenGroup(newVarName, token);
     }
 
+    return newVarName;
+  }
+
+  String addConverted(String key, String type, String parameter) {
+    final known = variableNames[key];
+    if (known != null) return known;
+    final newVarName = variableNames[key] = createVar();
+    _createConst(newVarName, type, parameter);
     return newVarName;
   }
 

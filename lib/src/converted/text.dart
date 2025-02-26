@@ -1,4 +1,5 @@
 import 'package:markdown/markdown.dart';
+import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/token/atomic.dart';
 import 'package:markdown_extend/src/token/token.dart';
@@ -18,6 +19,12 @@ class ConvertedText with Converted {
 
   @override
   String debug() => 'ConvertedText($token)';
+
+  @override
+  String build(Builder builder) {
+    final tokenVar = token.build(builder);
+    return builder.addConverted(debug(), 'ConvertedText', tokenVar);
+  }
 }
 
 extension TextConverter on Text {

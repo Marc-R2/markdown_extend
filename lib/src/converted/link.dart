@@ -1,4 +1,5 @@
 import 'package:markdown/markdown.dart';
+import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/text.dart';
 import 'package:markdown_extend/src/node_converter.dart';
@@ -28,6 +29,13 @@ class ConvertedLink with Converted {
 
   @override
   String debug() => 'Link(${named?.debug()}, $url)';
+
+  @override
+  String build(Builder builder) {
+    final namedVar = named?.build(builder);
+    final urlVar = url?.build(builder);
+    return builder.addConverted(debug(), 'ConvertedLink', '$namedVar, $urlVar');
+  }
 }
 
 class GroupConverted with Converted {
@@ -51,4 +59,10 @@ class GroupConverted with Converted {
 
   @override
   String debug() => 'Group(${children.map((c) => c.debug()).join(', ')}';
+
+  @override
+  String build(Builder builder) {
+    final childrenVars = children.map((c) => c.build(builder)).join(', ');
+    return builder.addConverted(debug(), 'GroupConverted', '[$childrenVars]');
+  }
 }

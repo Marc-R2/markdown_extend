@@ -1,3 +1,4 @@
+import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/token/token.dart';
 
@@ -16,6 +17,12 @@ class InternalLinkUnnamedConverted with Converted {
 
   @override
   String debug() => 'InternalLinkUnnamedConverted($targetName)';
+
+  @override
+  String build(Builder builder) {
+    final targetVar = targetName.build(builder);
+    return builder.addConverted(debug(), 'InternalLinkUnnamedConverted', targetVar);
+  }
 }
 
 class InternalLinkNamedConverted with Converted {
@@ -35,4 +42,11 @@ class InternalLinkNamedConverted with Converted {
 
   @override
   String debug() => 'InternalLinkNamedConverted($targetName, ${named.debug()})';
+
+  @override
+  String build(Builder builder) {
+    final namedVar = named.build(builder);
+    final targetVar = targetName.build(builder);
+    return builder.addConverted(debug(), 'InternalLinkNamedConverted', '$namedVar, $targetVar');
+  }
 }

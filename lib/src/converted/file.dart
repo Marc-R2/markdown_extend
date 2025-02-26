@@ -1,4 +1,5 @@
 import 'package:markdown/markdown.dart';
+import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/text.dart';
 import 'package:markdown_extend/src/token/token.dart';
@@ -26,4 +27,11 @@ class ConvertedFile with Converted {
 
   @override
   String debug() => 'ConvertedFile($alt, $url)';
+
+  @override
+  String build(Builder builder) {
+    final altVar = alt?.build(builder);
+    final urlVar = url?.build(builder);
+    return builder.addConverted(debug(), 'ConvertedFile', '$altVar, $urlVar');
+  }
 }

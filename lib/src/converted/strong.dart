@@ -1,4 +1,5 @@
 import 'package:markdown/markdown.dart';
+import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/link.dart';
 import 'package:markdown_extend/src/node_converter.dart';
@@ -27,6 +28,12 @@ class ConvertedStrong with Converted {
 
   @override
   String debug() => 'ConvertedStrong($child)';
+
+  @override
+  String build(Builder builder) {
+    final childVar = child?.build(builder) ?? 'null';
+    return builder.addConverted(debug(), 'ConvertedStrong', childVar);
+  }
 }
 
 class ConvertedItalic with Converted {
@@ -56,4 +63,10 @@ class ConvertedItalic with Converted {
 
   @override
   String debug() => 'ConvertedItalic($child)';
+
+  @override
+  String build(Builder builder) {
+    final childVar = child?.build(builder) ?? 'null';
+    return builder.addConverted(debug(), 'ConvertedItalic', childVar);
+  }
 }

@@ -8,7 +8,7 @@ abstract class Token {
 
   Iterable<TokenAtomic> get parts;
 
-  void build(Builder builder) => builder.addToken(this);
+  String build(Builder builder) => builder.addToken(this);
 
   @override
   bool operator ==(Object other) => other is Token && text == other.text;

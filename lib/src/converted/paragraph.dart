@@ -1,4 +1,5 @@
 import 'package:markdown/markdown.dart';
+import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/link.dart';
 import 'package:markdown_extend/src/node_converter.dart';
@@ -27,4 +28,10 @@ class ConvertedParagraph with Converted {
 
   @override
   String debug() => 'ConvertedParagraph(${child?.debug()})';
+
+  @override
+  String build(Builder builder) {
+    final childVar = child?.build(builder) ?? 'null';
+    return builder.addConverted(debug(), 'ConvertedParagraph', childVar);
+  }
 }
