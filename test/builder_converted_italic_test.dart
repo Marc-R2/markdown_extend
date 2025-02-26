@@ -1,5 +1,5 @@
 import 'package:markdown_extend/src/builder.dart';
-import 'package:markdown_extend/src/converted/strong.dart';
+import 'package:markdown_extend/src/converted/italic.dart';
 import 'package:markdown_extend/src/converted/text.dart';
 import 'package:markdown_extend/src/token/atomic.dart';
 import 'package:markdown_extend/src/token/group.dart';

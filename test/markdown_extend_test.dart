@@ -1,5 +1,6 @@
 import 'package:markdown_extend/src/converted/file.dart';
 import 'package:markdown_extend/src/converted/internal_link.dart';
+import 'package:markdown_extend/src/converted/italic.dart';
 import 'package:markdown_extend/src/converted/link.dart';
 import 'package:markdown_extend/src/converted/strong.dart';
 import 'package:markdown_extend/src/converted/text.dart';

@@ -5,18 +5,22 @@ import 'package:markdown_extend/src/converted/group.dart';
 import 'package:markdown_extend/src/node_converter.dart';
 import 'package:markdown_extend/src/token/token.dart';
 
-class ConvertedParagraph with Converted {
-  const ConvertedParagraph(this.child);
+class ConvertedItalic with Converted {
+  const ConvertedItalic(this.child, [this.isUnderscore = true]);
 
-  factory ConvertedParagraph.fromElement(Element element) {
+  factory ConvertedItalic.fromElement(Element element) {
     final children = element.children?.map((node) => node.convert());
     final child = GroupConverted.fromList(children);
     assert(element.attributes.isEmpty,
         'Unexpected attributes: ${element.attributes}');
-    return ConvertedParagraph(child);
+    return ConvertedItalic(child);
   }
 
   final Converted? child;
+
+  final bool isUnderscore;
+
+  String get prefix => isUnderscore ? '_' : '*';
 
   @override
   Iterable<Token> get tokens sync* {
@@ -24,14 +28,14 @@ class ConvertedParagraph with Converted {
   }
 
   @override
-  String toString() => child.toString();
+  String toString() => '$prefix$child$prefix';
 
   @override
-  String debug() => 'ConvertedParagraph(${child?.debug()})';
+  String debug() => 'ConvertedItalic($child)';
 
   @override
   String build(Builder builder) {
     final childVar = child?.build(builder) ?? 'null';
-    return builder.addConverted(debug(), 'ConvertedParagraph', childVar);
+    return builder.addConverted(debug(), 'ConvertedItalic', childVar);
   }
 }
