@@ -2,51 +2,32 @@ import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/token/token.dart';
 
-class InternalLinkUnnamedConverted with Converted {
-  const InternalLinkUnnamedConverted(this.targetName);
+class InternalLinkConverted with Converted {
+  const InternalLinkConverted(this.targetName, [this.named]);
 
   final Token targetName;
+  final Converted? named;
 
   @override
   Iterable<Token> get tokens sync* {
     yield targetName;
-  }
-
-  @override
-  String toString() => '[[$targetName]]';
-
-  @override
-  String debug() => 'InternalLinkUnnamedConverted($targetName)';
-
-  @override
-  String build(Builder builder) {
-    final targetVar = targetName.build(builder);
-    return builder.addConverted(debug(), 'InternalLinkUnnamedConverted', targetVar);
-  }
-}
-
-class InternalLinkNamedConverted with Converted {
-  const InternalLinkNamedConverted(this.targetName, this.named);
-
-  final Token targetName;
-  final Converted named;
-
-  @override
-  Iterable<Token> get tokens sync* {
-    yield targetName;
-    yield* named.tokens;
+    if (named != null) yield* named!.tokens;
   }
 
   @override
   String toString() => '[[${targetName.text}|$named]]';
 
   @override
-  String debug() => 'InternalLinkNamedConverted($targetName, ${named.debug()})';
+  String debug() => 'InternalLinkConverted($targetName, ${named?.debug()})';
 
   @override
   String build(Builder builder) {
-    final namedVar = named.build(builder);
+    final namedVar = named?.build(builder);
     final targetVar = targetName.build(builder);
-    return builder.addConverted(debug(), 'InternalLinkNamedConverted', '$namedVar, $targetVar');
+    return builder.addConverted(
+      debug(),
+      'InternalLinkConverted',
+      '$targetVar${namedVar == null ? '' : ', $namedVar'}',
+    );
   }
 }

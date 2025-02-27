@@ -33,13 +33,13 @@ void main() {
 
   const link0 = ConvertSingleTest(
     '[[links]]',
-    InternalLinkUnnamedConverted(TokenAtomic('links')),
+    InternalLinkConverted(TokenAtomic('links')),
   );
   link0.run();
 
   const link1 = ConvertSingleTest(
     '[[file_abc|named]]',
-    InternalLinkNamedConverted(
+    InternalLinkConverted(
       TokenAtomic('file_abc'),
       ConvertedText(TokenAtomic('named')),
     ),

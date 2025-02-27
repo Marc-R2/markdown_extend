@@ -24,13 +24,8 @@ bool eq(Converted? a, Converted? b) {
   }
 
   // InternalLinkNamedConverted
-  if (a is InternalLinkNamedConverted && b is InternalLinkNamedConverted) {
+  if (a is InternalLinkConverted && b is InternalLinkConverted) {
     return a.targetName == b.targetName && eq(a.named, b.named);
-  }
-
-  // InternalLinkUnnamedConverted
-  if (a is InternalLinkUnnamedConverted && b is InternalLinkUnnamedConverted) {
-    return a.targetName == b.targetName;
   }
 
   // GroupConverted

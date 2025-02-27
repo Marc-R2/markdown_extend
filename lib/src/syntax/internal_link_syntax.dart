@@ -21,8 +21,8 @@ class InternalLinkUnnamed extends Element with InternalLink {
   final String targetName;
 
   @override
-  InternalLinkUnnamedConverted convertInternalLink() =>
-      InternalLinkUnnamedConverted(targetName.toToken());
+  InternalLinkConverted convertInternalLink() =>
+      InternalLinkConverted(targetName.toToken());
 }
 
 class InternalLinkNamed extends Element with InternalLink {
@@ -33,10 +33,9 @@ class InternalLinkNamed extends Element with InternalLink {
   final String targetName;
 
   @override
-  InternalLinkNamedConverted convertInternalLink() =>
-      InternalLinkNamedConverted(
+  InternalLinkConverted convertInternalLink() => InternalLinkConverted(
         targetName.toToken(),
-        GroupConverted.fromList(children!.map((c) => c.convert()))!,
+        GroupConverted.fromList(children!.map((c) => c.convert())),
       );
 }
 
