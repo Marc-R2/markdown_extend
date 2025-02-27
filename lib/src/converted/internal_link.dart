@@ -15,7 +15,8 @@ class InternalLinkConverted with Converted {
   }
 
   @override
-  String toString() => '[[${targetName.text}|$named]]';
+  String toString() =>
+      '[[${targetName.text}${named != null ? '|$named' : ''}]]';
 
   @override
   String debug() => 'InternalLinkConverted($targetName, ${named?.debug()})';
