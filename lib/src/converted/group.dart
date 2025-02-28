@@ -1,5 +1,7 @@
+import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
+import 'package:markdown_extend/src/node_converter.dart';
 import 'package:markdown_extend/src/token/token.dart';
 
 class GroupConverted with Converted {
@@ -10,6 +12,9 @@ class GroupConverted with Converted {
     if (list.length > 1) return GroupConverted(list.toList());
     return list.firstOrNull;
   }
+
+  static fromElements(List<Node>? children) =>
+      fromList(children?.map((c) => c.convert()));
 
   final List<Converted> children;
 

@@ -2,15 +2,13 @@ import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/group.dart';
-import 'package:markdown_extend/src/node_converter.dart';
 import 'package:markdown_extend/src/token/token.dart';
 
 class ConvertedTitle with Converted {
   const ConvertedTitle(this.child, this.level);
 
   factory ConvertedTitle.fromElement(Element element, int level) {
-    final children = element.children?.map((node) => node.convert());
-    final child = GroupConverted.fromList(children);
+    final child = GroupConverted.fromElements(element.children);
     assert(element.attributes.isEmpty,
         'Unexpected attributes: ${element.attributes}');
     return ConvertedTitle(child, level);
