@@ -2,7 +2,6 @@ import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/node_converter.dart';
-import 'package:markdown_extend/src/token/token.dart';
 
 class GroupConverted with Converted {
   const GroupConverted(this.children);

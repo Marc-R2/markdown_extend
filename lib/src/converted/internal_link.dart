@@ -1,6 +1,5 @@
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
-import 'package:markdown_extend/src/token/token.dart';
 
 class InternalLinkConverted with Converted {
   const InternalLinkConverted(this.targetName, [this.named]);

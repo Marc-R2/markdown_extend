@@ -1,8 +1,9 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
-import 'package:markdown_extend/src/converted/group.dart';
 import 'package:markdown_extend/src/node_converter.dart';
 import 'package:markdown_extend/src/syntax/internal_link_syntax.dart';
+
+export 'package:markdown_extend/src/converted/converted.dart';
 
 final extensionSet = ExtensionSet(
   List<BlockSyntax>.unmodifiable(

@@ -1,6 +1,4 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:markdown_extend/src/token/atomic.dart';
-import 'package:markdown_extend/src/token/group.dart';
 import 'package:markdown_extend/src/token/token.dart';
 
 class Builder {
@@ -11,7 +9,7 @@ class Builder {
   final listBuilder = <Spec>[];
 
   void _createTokenAtomic(String varName, String txt) =>
-      _createConst(varName, 'TokenAtomic', "'$txt'");
+      _createConst(varName, 'TokenAtomic', "r'''$txt'''");
 
   void _createTokenGroup(String varName, TokenGroup group) {
     final childNames = group.tokens.map(addToken).join(', ');

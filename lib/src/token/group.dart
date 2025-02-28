@@ -1,4 +1,3 @@
-import 'package:markdown_extend/src/token/atomic.dart';
 import 'package:markdown_extend/src/token/token.dart';
 
 class TokenGroup extends Token {

@@ -1,19 +1,7 @@
 import 'package:markdown/markdown.dart';
-import 'package:markdown_extend/src/converted/code.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
-import 'package:markdown_extend/src/converted/file.dart';
-import 'package:markdown_extend/src/converted/hr.dart';
-import 'package:markdown_extend/src/converted/italic.dart';
-import 'package:markdown_extend/src/converted/li.dart';
-import 'package:markdown_extend/src/converted/link.dart';
-import 'package:markdown_extend/src/converted/ol.dart';
-import 'package:markdown_extend/src/converted/paragraph.dart';
-import 'package:markdown_extend/src/converted/strong.dart';
-import 'package:markdown_extend/src/converted/text.dart';
-import 'package:markdown_extend/src/converted/title.dart';
 import 'package:markdown_extend/src/syntax/internal_link_syntax.dart';
 
-import 'converted/ul.dart';
 
 extension NodeConverter on Node {
   Converted convert() => switch (this) {

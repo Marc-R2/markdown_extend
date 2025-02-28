@@ -1,8 +1,6 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
-import 'package:markdown_extend/src/token/atomic.dart';
-import 'package:markdown_extend/src/token/token.dart';
 
 class ConvertedText with Converted {
   const ConvertedText(this.token);

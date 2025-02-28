@@ -1,8 +1,6 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
-import 'package:markdown_extend/src/converted/group.dart';
-import 'package:markdown_extend/src/token/token.dart';
 
 class ConvertedUl with Converted {
   const ConvertedUl(this.child);

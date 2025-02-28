@@ -1,7 +1,4 @@
 import 'package:markdown_extend/markdown_extend.dart';
-import 'package:markdown_extend/src/converted/converted.dart';
-import 'package:markdown_extend/src/converted/group.dart';
-import 'package:markdown_extend/src/converted/paragraph.dart';
 import 'package:markdown_extend/src/node_converter.dart';
 import 'package:test/test.dart';
 

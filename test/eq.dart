@@ -1,19 +1,4 @@
-import 'package:markdown_extend/src/converted/code.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
-import 'package:markdown_extend/src/converted/file.dart';
-import 'package:markdown_extend/src/converted/group.dart';
-import 'package:markdown_extend/src/converted/hr.dart';
-import 'package:markdown_extend/src/converted/internal_link.dart';
-import 'package:markdown_extend/src/converted/italic.dart';
-import 'package:markdown_extend/src/converted/li.dart';
-import 'package:markdown_extend/src/converted/link.dart';
-import 'package:markdown_extend/src/converted/ol.dart';
-import 'package:markdown_extend/src/converted/paragraph.dart';
-import 'package:markdown_extend/src/converted/pre.dart';
-import 'package:markdown_extend/src/converted/strong.dart';
-import 'package:markdown_extend/src/converted/text.dart';
-import 'package:markdown_extend/src/converted/title.dart';
-import 'package:markdown_extend/src/converted/ul.dart';
 
 bool eq(Converted? a, Converted? b) {
   if (a == null && b == null) return true;

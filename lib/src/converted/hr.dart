@@ -1,7 +1,6 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
-import 'package:markdown_extend/src/token/token.dart';
 
 class ConvertedHr with Converted {
   const ConvertedHr();

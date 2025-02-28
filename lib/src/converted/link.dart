@@ -1,10 +1,7 @@
 import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
-import 'package:markdown_extend/src/converted/group.dart';
-import 'package:markdown_extend/src/converted/text.dart';
 import 'package:markdown_extend/src/node_converter.dart';
-import 'package:markdown_extend/src/token/token.dart';
 
 class ConvertedLink with Converted {
   const ConvertedLink(this.named, this.url);

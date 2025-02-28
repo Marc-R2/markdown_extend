@@ -1,6 +1,9 @@
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/token/atomic.dart';
 
+export 'package:markdown_extend/src/token/atomic.dart';
+export 'package:markdown_extend/src/token/group.dart';
+
 abstract class Token {
   const Token();
 
