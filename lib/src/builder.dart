@@ -1,5 +1,5 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:markdown_extend/src/token/token.dart';
+import 'package:markdown_extend/markdown_extend.dart';
 
 class Builder {
   /// key: actual text
@@ -8,12 +8,19 @@ class Builder {
 
   final listBuilder = <Spec>[];
 
-  void _createTokenAtomic(String varName, String txt) =>
-      _createConst(varName, 'TokenAtomic', "r'''$txt'''");
+  void _createTokenAtomic(String varName, String txt) => _createConst(
+        varName,
+        refer('TokenAtomic', 'package:markdown_extend/markdown_extend.dart'),
+        [literalString(txt)],
+      );
 
   void _createTokenGroup(String varName, TokenGroup group) {
-    final childNames = group.tokens.map(addToken).join(', ');
-    _createConst(varName, 'TokenGroup', '[$childNames]');
+    final childNames = group.tokens.map(addToken);
+    _createConst(
+      varName,
+      refer('TokenGroup', 'package:markdown_extend/markdown_extend.dart'),
+      [literalList(childNames)],
+    );
   }
 
   String createVar() {
@@ -22,9 +29,10 @@ class Builder {
     return newVarName;
   }
 
-  void _createConst(String varName, String constructor, [String? parameter]) =>
+  void _createConst(String varName, Reference constructor,
+          [List<Expression> parameter = const []]) =>
       listBuilder.add(declareConst(varName)
-          .assign(CodeExpression(Code("$constructor(${parameter ?? ''});"))));
+          .assign(constructor.call(parameter)).statement);
 
   /// Returns the variable name for a [Token]
   /// The variable will be created if not present.
@@ -47,11 +55,15 @@ class Builder {
     final known = variableNames[key];
     if (known != null) return known;
     final newVarName = variableNames[key] = createVar();
-    _createConst(newVarName, type, parameter);
+    _createConst(
+      newVarName,
+      refer(type, 'package:markdown_extend/markdown_extend.dart'),
+      [refer(parameter)],
+    );
     return newVarName;
   }
 
-  static final emitter = DartEmitter();
+  static final emitter = DartEmitter.scoped();
 
   String build() {
     final library = Library((lib) => lib.body.addAll(listBuilder));
