@@ -1,3 +1,4 @@
+import 'package:markdown_extend/markdown_extend.dart';
 import 'package:markdown_extend/src/converted/file.dart';
 import 'package:markdown_extend/src/converted/internal_link.dart';
 import 'package:markdown_extend/src/converted/italic.dart';
