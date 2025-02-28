@@ -3,12 +3,16 @@ import 'package:markdown_extend/src/converted/code.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/file.dart';
 import 'package:markdown_extend/src/converted/italic.dart';
+import 'package:markdown_extend/src/converted/li.dart';
 import 'package:markdown_extend/src/converted/link.dart';
+import 'package:markdown_extend/src/converted/ol.dart';
 import 'package:markdown_extend/src/converted/paragraph.dart';
 import 'package:markdown_extend/src/converted/strong.dart';
 import 'package:markdown_extend/src/converted/text.dart';
 import 'package:markdown_extend/src/converted/title.dart';
 import 'package:markdown_extend/src/syntax/internal_link_syntax.dart';
+
+import 'converted/ul.dart';
 
 extension NodeConverter on Node {
   Converted convert() => switch (this) {
@@ -35,6 +39,9 @@ extension on Element {
       'h6' => ConvertedTitle.fromElement(this, 6),
       'code' => ConvertedCode.fromElement(this),
       'pre' => ConvertedCode.fromElement(this),
+      'ul' => ConvertedUl.fromElement(this),
+      'ol' => ConvertedOl.fromElement(this),
+      'li' => ConvertedLi.fromElement(this),
       String() => throw Exception('Unknown element tag: $tag'),
     };
   }
