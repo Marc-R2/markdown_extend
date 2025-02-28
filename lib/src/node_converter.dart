@@ -2,6 +2,7 @@ import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/converted/code.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/file.dart';
+import 'package:markdown_extend/src/converted/hr.dart';
 import 'package:markdown_extend/src/converted/italic.dart';
 import 'package:markdown_extend/src/converted/li.dart';
 import 'package:markdown_extend/src/converted/link.dart';
@@ -42,6 +43,7 @@ extension on Element {
       'ul' => ConvertedUl.fromElement(this),
       'ol' => ConvertedOl.fromElement(this),
       'li' => ConvertedLi.fromElement(this),
+      'hr' => ConvertedHr.fromElement(this),
       String() => throw Exception('Unknown element tag: $tag'),
     };
   }

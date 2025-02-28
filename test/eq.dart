@@ -2,6 +2,7 @@ import 'package:markdown_extend/src/converted/code.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 import 'package:markdown_extend/src/converted/file.dart';
 import 'package:markdown_extend/src/converted/group.dart';
+import 'package:markdown_extend/src/converted/hr.dart';
 import 'package:markdown_extend/src/converted/internal_link.dart';
 import 'package:markdown_extend/src/converted/italic.dart';
 import 'package:markdown_extend/src/converted/li.dart';
@@ -82,6 +83,11 @@ bool eq(Converted? a, Converted? b) {
   // ConvertedOl
   if (a is ConvertedOl && b is ConvertedOl) {
     return eq(a.child, b.child);
+  }
+
+  // ConvertedHr
+  if (a is ConvertedHr && b is ConvertedHr) {
+    return true;
   }
 
   // ConvertedParagraph
