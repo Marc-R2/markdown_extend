@@ -3,6 +3,7 @@ import 'package:markdown_extend/src/token/token.dart';
 
 export 'package:markdown_extend/src/converted/code.dart';
 export 'package:markdown_extend/src/converted/file_embed.dart';
+export 'package:markdown_extend/src/converted/fs.dart';
 export 'package:markdown_extend/src/converted/group.dart';
 export 'package:markdown_extend/src/converted/hr.dart';
 export 'package:markdown_extend/src/converted/internal_link.dart';
