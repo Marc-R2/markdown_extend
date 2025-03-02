@@ -2,13 +2,13 @@ import 'package:markdown/markdown.dart';
 import 'package:markdown_extend/src/builder.dart';
 import 'package:markdown_extend/src/converted/converted.dart';
 
-class ConvertedFile with Converted {
-  const ConvertedFile(this.alt, this.url);
+class ConvertedFileEmbed with Converted {
+  const ConvertedFileEmbed(this.alt, this.url);
 
-  factory ConvertedFile.fromElement(Element element) {
+  factory ConvertedFileEmbed.fromElement(Element element) {
     final alt = element.attributes['alt'];
     final url = element.attributes['src'];
-    return ConvertedFile(alt?.toToken(), url?.toToken());
+    return ConvertedFileEmbed(alt?.toToken(), url?.toToken());
   }
 
   final Token? alt;
@@ -24,12 +24,12 @@ class ConvertedFile with Converted {
   String toString() => '![${alt ?? ''}](${url ?? ''})';
 
   @override
-  String debug() => 'ConvertedFile($alt, $url)';
+  String debug() => 'ConvertedFileEmbed($alt, $url)';
 
   @override
   String build(Builder builder) {
     final altVar = alt?.build(builder);
     final urlVar = url?.build(builder);
-    return builder.addConverted(debug(), 'ConvertedFile', '$altVar, $urlVar');
+    return builder.addConverted(debug(), 'ConvertedFileEmbed', '$altVar, $urlVar');
   }
 }

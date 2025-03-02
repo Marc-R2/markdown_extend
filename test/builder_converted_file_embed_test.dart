@@ -1,5 +1,5 @@
 import 'package:markdown_extend/src/builder.dart';
-import 'package:markdown_extend/src/converted/file.dart';
+import 'package:markdown_extend/src/converted/file_embed.dart';
 import 'package:markdown_extend/src/token/atomic.dart';
 import 'package:markdown_extend/src/token/group.dart';
 import 'package:test/test.dart';
@@ -14,14 +14,14 @@ void main() {
 
   const tokenGroup0 = TokenGroup([tokenAtomic0, tokenAtomic1]);
 
-  const convertedFile0 = ConvertedFile(tokenAtomic0, tokenAtomic1);
-  const convertedFile1 = ConvertedFile(tokenAtomic0, tokenGroup0);
+  const convertedFile0 = ConvertedFileEmbed(tokenAtomic0, tokenAtomic1);
+  const convertedFile1 = ConvertedFileEmbed(tokenAtomic0, tokenGroup0);
 
   setUp(() {
     builder = Builder();
   });
 
-  test('create ConvertedFile with TokenAtomic', () {
+  test('create ConvertedFileEmbed with TokenAtomic', () {
     convertedFile0.build(builder);
 
     expect(builder.variableNames, hasLength(equals(3)));
@@ -30,10 +30,10 @@ void main() {
     final build = builder.build();
     expect(build, contains('const  var0 = $tokenAtomic0txt;'));
     expect(build, contains('const  var1 = $tokenAtomic1txt;'));
-    expect(build, contains('const  var2 = ConvertedFile(var0, var1);'));
+    expect(build, contains('const  var2 = ConvertedFileEmbed(var0, var1);'));
   });
 
-  test('create ConvertedFile with TokenGroup', () {
+  test('create ConvertedFileEmbed with TokenGroup', () {
     convertedFile1.build(builder);
 
     expect(builder.variableNames, hasLength(equals(4)));
@@ -43,10 +43,10 @@ void main() {
     expect(build, contains('const  var0 = $tokenAtomic0txt;'));
     expect(build, contains('const  var2 = $tokenAtomic1txt;'));
     expect(build, contains('const  var1 = TokenGroup([var0, var2]);'));
-    expect(build, contains('const  var3 = ConvertedFile(var0, var1);'));
+    expect(build, contains('const  var3 = ConvertedFileEmbed(var0, var1);'));
   });
 
-  test('create same ConvertedFile twice', () {
+  test('create same ConvertedFileEmbed twice', () {
     final var0 = convertedFile1.build(builder);
     final var1 = convertedFile1.build(builder);
 

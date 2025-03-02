@@ -32,7 +32,7 @@ void main() {
 
   const file0 = ConvertSingleTest(
     '![images](image.png)',
-    ConvertedFile(TokenAtomic('images'), TokenAtomic('image.png')),
+    ConvertedFileEmbed(TokenAtomic('images'), TokenAtomic('image.png')),
   );
   file0.run();
 

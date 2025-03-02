@@ -16,7 +16,7 @@ extension on Element {
   Converted convertElement() {
     return switch (tag) {
       'a' => ConvertedLink.fromElement(this),
-      'img' => ConvertedFile.fromElement(this),
+      'img' => ConvertedFileEmbed.fromElement(this),
       'p' => ConvertedParagraph.fromElement(this),
       'strong' => ConvertedStrong.fromElement(this),
       'em' => ConvertedItalic.fromElement(this),

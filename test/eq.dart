@@ -30,8 +30,8 @@ bool eq(Converted? a, Converted? b) {
     return a.level == b.level && eq(a.child, b.child);
   }
 
-  // ConvertedFile
-  if (a is ConvertedFile && b is ConvertedFile) {
+  // ConvertedFileEmbed
+  if (a is ConvertedFileEmbed && b is ConvertedFileEmbed) {
     return a.alt == b.alt && a.url == b.url;
   }
 
