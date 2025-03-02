@@ -45,6 +45,11 @@ class ConvertedDirectory extends BuilderFSEntry {
   final List<ConvertedFile> files;
   final List<ConvertedDirectory> dirs;
 
+  Iterable<ConvertedFile> get filesRecursive sync* {
+    yield* files;
+    yield* dirs.expand((d) => d.filesRecursive);
+  }
+
   @override
   Iterable<Token> get tokens sync* {
     yield* files.expand((e) => e.tokens);
