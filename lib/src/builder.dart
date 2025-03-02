@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:code_builder/code_builder.dart';
 import 'package:markdown_extend/markdown_extend.dart';
 
@@ -24,15 +26,15 @@ class Builder {
   }
 
   String createVar() {
-    final newVarName = 'var${variableNames.length}'; // TODO: better var naming
+    final newVarName = '_var${variableNames.length}'; // TODO: better var naming
     assert(!variableNames.containsValue(newVarName), 'var already in use');
     return newVarName;
   }
 
   void _createConst(String varName, Reference constructor,
           [List<Expression> parameter = const []]) =>
-      listBuilder.add(declareConst(varName)
-          .assign(constructor.call(parameter)).statement);
+      listBuilder.add(
+          declareConst(varName).assign(constructor.call(parameter)).statement);
 
   /// Returns the variable name for a [Token]
   /// The variable will be created if not present.
@@ -63,10 +65,48 @@ class Builder {
     return newVarName;
   }
 
+  final dirs = <ConvertedDirectory>{};
+
+  ConvertedDirectory readDir(Directory dir) {
+    final converted = _readDir(dir);
+    dirs.add(converted);
+    return converted;
+  }
+
+  ConvertedDirectory _readDir(Directory dir) {
+    final files = <ConvertedFile>[];
+    final dirs = <ConvertedDirectory>[];
+
+    for (final file in dir.listSync()) {
+      if (file is Directory) {
+        final dir = _readDir(file);
+        if (dir.hasFiles) dirs.add(dir);
+      } else if (file is File) {
+        final name = file.uri.pathSegments.last;
+        if (name.endsWith('.md')) files.add(_readFile(file));
+      }
+    }
+
+    return ConvertedDirectory.fromUri(dir.uri, files, dirs);
+  }
+
+  ConvertedFile _readFile(File md) {
+    final converted = convertMarkdown(md.readAsStringSync());
+    converted.build(this);
+    return ConvertedFile.fromUri(md.uri, converted);
+  }
+
   static final emitter = DartEmitter.scoped();
 
   String build() {
-    final library = Library((lib) => lib.body.addAll(listBuilder));
-    return library.accept(emitter).toString();
+    final dirsVars = dirs.map((d) => d.build(this)).join(', ');
+    listBuilder.add(declareConst('dirs')
+        .assign(CodeExpression(Code('[$dirsVars]')))
+        .statement);
+
+    final library = LibraryBuilder();
+    library.body.addAll(listBuilder);
+
+    return library.build().accept(emitter).toString();
   }
 }
